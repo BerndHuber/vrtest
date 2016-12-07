@@ -41,7 +41,7 @@ Ks 0.000977 0.000977 0.000977
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd grace_mouth_d.dds
+map_Kd Grace_mouth_d.dds
 
 
 newmtl 0-model-0-mat-1_eye_s_grace_eye_d.dds
@@ -52,7 +52,7 @@ Ks 0.000977 0.000977 0.000977
 Ni 1.000000
 d 0.000000
 illum 2
-map_Kd grace_eye_d.dds
+map_Kd Grace_eye_d.dds
 
 
 newmtl 0-model-0-mat-25_npc__Grace_hair_d_(Modifie
