@@ -1,0 +1,68 @@
+# Blender3D MTL File: 
+# Material Count: 6
+newmtl 0-model-0-mat-0_c.001_Grace_arm_d_(Modified
+Ns 78.431373
+Ka 0.000000 0.000000 0.000000
+Kd 0.167772 0.167772 0.167772
+Ks 0.007813 0.007813 0.007813
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Grace_arm_d (Modified).dds
+
+
+newmtl 0-model-0-mat-24_npc__Grace_face_d_(Modifie
+Ns 70.588235
+Ka 0.000000 0.000000 0.000000
+Kd 0.085899 0.085899 0.085899
+Ks 0.000977 0.000977 0.000977
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Grace_face_d (Modified).dds
+
+
+newmtl 0-model-0-mat-0_npc_s_npc_scientist_f_d_mip
+Ns 76.470588
+Ka 0.000000 0.000000 0.000000
+Kd 0.134218 0.134218 0.134218
+Ks 0.003907 0.003907 0.003907
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd npc_scientist_f_d_mip0.dds
+
+
+newmtl 0-model-0-mat-0_corp__grace_mouth_d.dds
+Ns 70.588235
+Ka 0.000000 0.000000 0.000000
+Kd 0.085899 0.085899 0.085899
+Ks 0.000977 0.000977 0.000977
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd grace_mouth_d.dds
+
+
+newmtl 0-model-0-mat-1_eye_s_grace_eye_d.dds
+Ns 70.588235
+Ka 0.000000 0.000000 0.000000
+Kd 0.085899 0.085899 0.085899
+Ks 0.000977 0.000977 0.000977
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd grace_eye_d.dds
+
+
+newmtl 0-model-0-mat-25_npc__Grace_hair_d_(Modifie
+Ns 70.588235
+Ka 0.000000 0.000000 0.000000
+Kd 0.085899 0.085899 0.085899
+Ks 0.000977 0.000977 0.000977
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Grace_hair_d (Modified).dds
+
+
