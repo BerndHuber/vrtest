@@ -6,14 +6,19 @@
   <body>
     <a-scene>
       <a-assets>
-        <a-asset-item id="crate-obj" src="tinker.obj"></a-asset-item>
-        <a-asset-item id="crate-mtl" src="obj.mtl"></a-asset-item>
+        <a-asset-item id="room-obj" src="room.obj"></a-asset-item>
+        <a-asset-item id="room-mtl" src="room.mtl"></a-asset-item>
+      </a-assets>
+      <a-assets>
+        <a-asset-item id="avatar-obj" src="boy.obj"></a-asset-item>
+        <a-asset-item id="avatar-mtl" src="boy.mtl"></a-asset-item>
       </a-assets>
       <a-entity position="0 2 3" rotation="0 0 0">
         <a-camera near="0.1" user-height="0"></a-camera>
       </a-entity>
-      <a-entity obj-model="obj: #crate-obj; mtl: #crate-mtl" scale="0.01 0.01 0.01"></a-entity>
-      <a-plane position="0 4 4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-entity obj-model="obj: #room-obj; mtl: #room-mtl" scale="0.08 0.08 0.08" rotation="-90 0 0"></a-entity>
+      <a-entity obj-model="obj: #avatar-obj; mtl: #avatar-mtl" scale="0.3 0.3 0.3" rotation="-90 0 0"></a-entity>
+      <a-plane position="0 4 4" rotation="-90 0 -90" width="4" height="4" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
   </body>
