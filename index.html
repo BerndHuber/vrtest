@@ -195,10 +195,13 @@ tick: function () {
   //console.log(new_angleobj.multiplyScalar(0.008*x));
   
   //obj3d.position.add(angleobj.multiplyScalar(0.008*x));
-  console.log(new_obj3d.position.x,new_obj3d.position.z)
-  if (!checkForCollision(new_obj3d.position.x,new_obj3d.position.z)) {
-    obj3d.position.add(angleobj.multiplyScalar(0.004*x));  
-  }
+  //console.log(new_obj3d.position.x,new_obj3d.position.z)
+
+  //if (!checkForCollision(new_obj3d.position.x,new_obj3d.position.z)) {
+   obj3d.position.add(angleobj.multiplyScalar(0.004*x));  
+  //}
+
+  
   //console.log(obj3d.position.x,obj3d.position.z)
   //document.querySelector("#camera").object3D.translateZ(-0.1);
 }
