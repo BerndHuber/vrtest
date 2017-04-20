@@ -110,13 +110,14 @@ function checkIfInRectangle(loc,x,y) {
 
 function checkForCollision(x,y) {
   var flag = false
-  rectangles.forEach(function(element) {
-    if (!flag){
-      if (checkIfInRectangle(element,x,y)) {
-        //console.log("COLLISION DETECTED!!");
-        flag = true;
-      }
+  var le = rectangles.length;
+  for (var i = 0;i < le;i++) {
+    if (checkIfInRectangle(rectangles[i],x,y)) {
+      flag = true;
+      break;
     }
+  }
+  rectangles.forEach(function(element) {
   });
   if(!flag){
   //console.log("NOOO COLLISION!!");
@@ -125,22 +126,22 @@ function checkForCollision(x,y) {
 }
 
 function addWall(a,x,z,w,d) {
-          var wallHeight = 6;
-          x = x + offs;
-          z = z + offs;
-          x = -x;
-          let b = document.createElement("a-box");
-          b.setAttribute("position", {
-              "x" : x,
-              "y" : 0,
-              "z" : z
-          });
-          b.setAttribute("width",w);
-          b.setAttribute("depth",d);
-          b.setAttribute("height",wallHeight);
-          b.setAttribute("color","#abc");
-          b.setAttribute("static-body","");
-          a.appendChild(b);
+  var wallHeight = 6;
+  x = x + offs;
+  z = z + offs;
+  x = -x;
+  let b = document.createElement("a-box");
+  b.setAttribute("position", {
+      "x" : x,
+      "y" : 0,
+      "z" : z
+  });
+  b.setAttribute("width",w);
+  b.setAttribute("depth",d);
+  b.setAttribute("height",wallHeight);
+  b.setAttribute("color","#abc");
+  b.setAttribute("static-body","");
+  a.appendChild(b);
 }
 
 function addMaze() {
@@ -149,11 +150,6 @@ function addMaze() {
     for (var col = 0;col<num_cols;col++) {
       var cell_data = m[row][col];
       for (var i = inc*row+1;i < inc*row+inc-1;i++) {
-        //image[i,range(inc*col+1,inc*col+inc-1)] = 255
-        //console.log(inc*col+1-offs,inc*col+inc-1-offs);
-        //addWall(a,inc*col+1-offs,inc*col+inc-1-offs,1,1);
-        //console.log(cell_data);
-        //a trie with x1,x2,x3,x4
         var wallSize = 1
         if (cell_data[0] == 0) {
           addWall(a,inc*row+inc/2,inc*col,inc,1);
