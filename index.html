@@ -168,9 +168,9 @@ window.onload = function () {
       var new_angleobj = angleobj.clone();
       var new_obj3d = obj3d.clone();
       new_obj3d.position.add(new_angleobj.multiplyScalar(0.004*x));
-  //if (!checkForCollision(new_obj3d.position.x,new_obj3d.position.z)) {
+  if (!checkForCollision(new_obj3d.position.x,new_obj3d.position.z)) {
    obj3d.position.add(angleobj.multiplyScalar(0.004*x));  
-  //}
+  }
 
 }
 });
