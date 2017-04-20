@@ -1,114 +1,216 @@
-<!doctype html>
-  <head>
-  <meta charset="utf-8">
-  <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-assets>
-        <a-asset-item id="room-obj" src="room.obj"></a-asset-item>
-        <a-asset-item id="room-mtl" src="room.mtl"></a-asset-item>
-      </a-assets>
-      <a-assets>
-        <a-asset-item id="avatar-obj" src="boy.obj"></a-asset-item>
-      </a-assets>
-      <a-entity id="cameraWrapper" position="0 2 10" rotation="0 0 0">
-        <a-camera near="0.1" user-height="0" id="camera" listener></a-camera>
-      </a-entity>
-      <a-entity obj-model="obj: #room-obj; mtl: #room-mtl" scale="0.08 0.08 0.08" rotation="-90 0 0"></a-entity>
-      <a-entity obj-model="obj: #avatar-obj; mtl:" scale="0.3 0.3 0.3" rotation="-90 0 0"></a-entity>
-      <a-plane position="0 4 4" rotation="-90 0 -90" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
-  </body>
-  <script>
-    window.onload = function () {
-      /*
-      var pos = document.querySelector('#camera').getAttribute('position');
-      var previous_tilt = 0.0;
-      var px = 0.0;
-      var py = 0.0;
-      var pz = 0.0;
-      */
-            var camp = document.querySelector("#cameraWrapper");
-            var obj3d = document.querySelector("#camera").object3D;
-        AFRAME.registerComponent('listener', {
-          tick: function () {
-            //console.log("NEW POSITIONS:")
-            //console.log(this.el.getAttribute('position'));
-            //console.log(this.el.getAttribute('rotation'));
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+  <title>Spatial Memory Test</title>
+  <script src="https://webvr.donmccurdy.com/aframe-extras.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-          //var cameraEl = document.querySelector('#camera');
-          /*
-          var nx = camp.getAttribute('position').x;
-          var ny = camp.getAttribute('position').y;
-          var nz = camp.getAttribute('position').z;
-          */
-          var angleobj = obj3d.getWorldDirection();
-          //console.log(angleobj);
-          //var nrx = angleobj.x;
-          //var nry = angleobj.y;
-          //var nrz = angleobj.z;
-            //camp.setAttribute('position', 'x',nx-0.01*nrx);
-            //camp.setAttribute('position', 'y',ny+0.1*nry);
-            //camp.setAttribute('position', 'x',nz-0.09*nry);
-            //camp.setAttribute('position', 'z',nz-0.09*nry);
-            var current_tilt = obj3d.quaternion.x;
-            //console.log(current_tilt);
-            angleobj.y = 0
-            obj3d.parent.position.add(angleobj.multiplyScalar(current_tilt*0.1));
-            //console.log(camp)
-          //var camera = document.querySelector("a-camera");
-          //var direction = new THREE.Vector3().copy(camera.getWorldDirection());
-          //console.log(direction);
-          //var stepFactor = 0.1;
-          //console.log(direction);
-          //camp.position.add(cameraEl.object3D.quaternion.multiplyScalar(stepFactor));
-          }
-        });
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+</head>
+<body>
+  <a-scene physics id="a">
+  <!-- Player -->
+  <a-assets>
+  <a-asset-item id="endo-obj" src="boy.obj"></a-asset-item>
+</a-assets>
+<a-entity position="33 0 -33" rotation="0 180 0" id="camera" camera="userHeight: 1.6" kinematic-body universal-controls="movementControls: custom, hmd;" listener>
+</a-entity>
 
-        /*
-      document.querySelector('[camera]').addEventListener('componentchanged', function (evt) {
-        return;
-        var cameraEl = document.querySelector('#camera');
-        var worldPos = new THREE.Vector3();
-        worldPos.setFromMatrixPosition(cameraEl.object3D.matrixWorld);
-        var cx = worldPos.x;
-        var cy = worldPos.y;
-        var cz = worldPos.z;
-        var current_tilt = cameraEl.object3D.quaternion.x;
-        var current_y = cameraEl.object3D.quaternion.y;
-        //console.log('CAMERA JAW:', current_y);
-        if(previous_tilt != current_tilt) {
-          previous_tilt = current_tilt;
-          //console.log('CAMERA TILT:', current_tilt);
+<!-- Ground -->
+<a-grid static-body></a-grid>
+
+<!-- Obstacles -->
+<!-- Box -->
+<a-entity obj-model="obj: url(boy.obj)" scale="0.3 0.3 0.3" rotation="-90 180 0" dynamic-body="shape: box; mass: 0" position="-10 0 20"></a-entity>
+<!--<a-box static-body position="-8 0 -25" width="0.001" height="4" depth="0.001"></a-box> -->
+
+<!-- The four outside walls -->
+<a-box color="#abc" static-body position="-35 0 0" width="0.001" height="6" depth="70"></a-box>
+<a-box color="#abc" static-body position="35 0 0" width="0.001" height="6" depth="70"></a-box>
+
+<a-box color="#abc" static-body position="0 0 -35" width="70" height="6" depth="0.001"></a-box>
+<a-box color="#abc" static-body position="0 0 35" width="70" height="6" depth="0.001"></a-box>
+
+<!-- The maze walls -->
+
+ <!-- 
+<a-box color="#abc" static-body position="0 0 -20" width="0.001" height="6" depth="35"></a-box>
+      <a-entity static-body color="#abc" obj-model="obj: #endo-obj" scale="0.1 0.1 0.1" rotation="-90 0 0" position="1 1 1" static-body></a-entity>
+    -->
+    <!-- Lighting -->
+    <a-light type="ambient" color="#bbb"></a-light>
+    <a-light color="#ccc" position="0 30 0" distance="100" intensity="0.4" type="point"></a-light>
+    <a-light color="#ccc" position="3 10 -10" distance="50" intensity="0.4" type="point"></a-light>
+  </a-scene>
+  <div class="card card-block" style="position:absolute;left:0px;bottom:0px;width:250px;background-color:white;z-index:999">
+    <h3 class="card-title">Control Panel:</h3>
+    <img src="figure_1.png" alt="some_text" style="width:210px;height:170px;">
+    <div class="form-group row">
+      <label for="example-text-input" class="col-xs-7 col-form-label">Solution:</label>
+      <div class="col-xs-5">
+        <input class="form-control" type="text" id="x">
+      </div>
+    </div>
+    <a id="nextButton" class="btn btn-success" style="float:right;color:white" >Next</a>
+  </div>
+</body>
+<script>
+var m = [[[1, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 0, 1, 1]], [[0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 0, 1, 1]], [[0, 0, 1, 0, 1], [1, 0, 1, 1, 1], [1, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1]], [[0, 0, 1, 1, 1], [1, 1, 0, 0, 1], [0, 1, 0, 0, 1], [0, 1, 0, 1, 1], [0, 0, 0, 1, 1]], [[0, 1, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 0, 1], [1, 1, 1, 0, 1]]];
+
+m = [[[1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 1]], [[0, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 0, 0, 1], [0, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 1], [0, 1, 0, 1, 1]], [[0, 1, 0, 1, 1], [0, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 1], [0, 1, 0, 1, 1], [0, 1, 1, 0, 1], [1, 0, 0, 1, 1], [0, 1, 0, 0, 1], [0, 1, 0, 1, 1]], [[0, 1, 0, 1, 1], [0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 0, 0, 1, 1], [0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1]], [[0, 1, 1, 1, 1], [1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 0, 1], [1, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1], [0, 0, 0, 1, 1]], [[0, 1, 0, 1, 1], [0, 0, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 0, 1, 1], [0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1]], [[0, 1, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 0, 0, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 1, 0, 1], [1, 0, 0, 1, 1]], [[0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 1], [0, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 0, 1, 1]], [[0, 1, 1, 1, 1], [1, 0, 1, 0, 1], [1, 0, 1, 1, 1], [1, 0, 0, 0, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1], [0, 1, 0, 0, 1], [0, 1, 0, 1, 1], [0, 0, 1, 1, 1], [1, 1, 0, 0, 1]], [[0, 1, 1, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 0, 1], [1, 0, 1, 0, 1], [1, 0, 1, 0, 1], [1, 1, 0, 0, 1], [0, 1, 1, 0, 1], [1, 0, 1, 0, 1]]];
+var rectangles = [];
+console.log(m);
+var inc = 6
+var offs = -35;
+var num_rows = m.length;
+var num_cols = m[0].length;
+
+function addRectangle(x1,x2,y1,y2) {
+  x1 = x1 + offs;
+  y1 = y1 + offs;
+  x1 = -x1;
+  x2 = x2 + offs;
+  y2 = y2 + offs;
+  x2 = -x2;
+  if(x2 >x1) {
+    var x1f = x1;
+    var x2f = x2;
+  } else {
+    var x2f = x1;
+    var x1f = x2;
+  }
+  if(y2 >y1) {
+    var y1f = y1;
+    var y2f = y2;
+  } else {
+    var y2f = y1;
+    var y1f = y2;
+  }
+  var rectangle = {x1: x1f, x2: x2f, y1: y1f, y2: y2f};
+  //console.log(rectangle)
+  rectangles.push(rectangle);
+}
+
+function checkIfInRectangle(loc,x,y) {
+ x1 = loc.x1;
+ x2 = loc.x2;
+ y1 = loc.y1;
+ y2 = loc.y2;
+   if ((x1 <= x) && (x <= x2) && 
+       (y1 <= y) && (y <= y2)) {
+     return true;
+   } else {
+     return false;
+   }
+}
+
+function checkForCollision(x,y) {
+  var flag = false
+  rectangles.forEach(function(element) {
+    if (!flag){
+      if (checkIfInRectangle(element,x,y)) {
+        //console.log("COLLISION DETECTED!!");
+        flag = true;
+      }
+    }
+  });
+  if(!flag){
+  //console.log("NOOO COLLISION!!");
+  }
+  return flag;
+}
+
+function addWall(a,x,z,w,d) {
+          var wallHeight = 6;
+          x = x + offs;
+          z = z + offs;
+          x = -x;
+          let b = document.createElement("a-box");
+          b.setAttribute("position", {
+              "x" : x,
+              "y" : 0,
+              "z" : z
+          });
+          b.setAttribute("width",w);
+          b.setAttribute("depth",d);
+          b.setAttribute("height",wallHeight);
+          b.setAttribute("color","#abc");
+          b.setAttribute("static-body","");
+          a.appendChild(b);
+}
+
+function addMaze() {
+
+  for (var row = 0;row<num_rows;row++) {
+    for (var col = 0;col<num_cols;col++) {
+      var cell_data = m[row][col];
+      for (var i = inc*row+1;i < inc*row+inc-1;i++) {
+        //image[i,range(inc*col+1,inc*col+inc-1)] = 255
+        //console.log(inc*col+1-offs,inc*col+inc-1-offs);
+        //addWall(a,inc*col+1-offs,inc*col+inc-1-offs,1,1);
+        //console.log(cell_data);
+        //a trie with x1,x2,x3,x4
+        var wallSize = 1
+        if (cell_data[0] == 0) {
+          addWall(a,inc*row+inc/2,inc*col,inc,1);
+          addRectangle(inc*row,inc*row+inc,inc*col-wallSize,inc*col+wallSize)
         }
-        //console.log('CAMERA POSITION X/Y/Z:', cx,cy,cz);
-        if (px != cx || py != cy || pz != cz) {
-          px = cx;
-          py = cy;
-          pz = cz;
-          //console.log('CAMERA POSITION X/Y/Z:', cx,cy,cz);
-        }a
-        var worldPos = new THREE.Vector3();
-        var quaternion = new THREE.Quaternion();
-        worldPos.setFromMatrixPosition(cameraEl.object3D.matrixWorld);
-        console.log('WORLD POSITION CAMERA',worldPos.x);
-        console.log('WORLD ROTATION CAMERA',quaternion.x);
-        if (evt.name === 'rotation') { 
-          console.log('Entity has moved from POSITION', evt, 'to', evt, '!');
-          return; 
+        if (cell_data[1] == 0) {
+          addWall(a,inc*row,inc*col+inc/2,1,inc);
+          addRectangle(inc*row-wallSize,inc*row+wallSize,inc*col,inc*col+inc)
         }
-        if (evt.name === 'position') { 
-          console.log('Entity has moved from POSITION', evt, 'to', evt, '!');
-          return; 
+        if (cell_data[2] == 0) { 
+          addWall(a,inc*row+inc/2,inc*col + inc - 1,inc,1);
+          addRectangle(inc*row,inc*row+inc,inc*col + inc - 1-wallSize,inc*col + inc - 1+wallSize)
         }
-        return;
-        if (evt.newData.y < 180) { 
-            // ... 
+        if (cell_data[3] == 0) {
+          addWall(a,inc*row + inc - 1,inc*col+inc/2,1,inc);
+          addRectangle(inc*row + inc - 1 - wallSize, inc*row + inc - 1 + wallSize,inc*col,inc*col+inc)
         }
-      });
-        */
-    };
-  </script>
+      }
+    }
+  }
+}
+
+window.onload = function () {
+var playerEl = document.querySelector("#camera").object3D;
+playerEl.addEventListener('collide', function (e) {
+  console.log('Player has collided with body #' + e.detail.body.id);
+
+  //e.detail.target.el;  // Original entity (playerEl).
+  //e.detail.body.el;    // Other entity, which playerEl touched.
+  //e.detail.contact;    // Stats about the collision (CANNON.ContactEquation).
+  //e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+});
+var obj3d = document.querySelector("#camera").object3D;
+console.log("aaaa");
+AFRAME.registerComponent('listener', {
+tick: function () {
+  var x = document.querySelector("#camera").getAttribute('rotation').x;
+  var angleobj = obj3d.getWorldDirection();
+  angleobj.y = 0;
+  var new_angleobj = angleobj.clone();
+  var new_obj3d = obj3d.clone();
+  new_obj3d.position.add(new_angleobj.multiplyScalar(0.004*x));  
+  //console.log(new_angleobj.multiplyScalar(0.008*x));
+  
+  //obj3d.position.add(angleobj.multiplyScalar(0.008*x));
+  console.log(new_obj3d.position.x,new_obj3d.position.z)
+  if (!checkForCollision(new_obj3d.position.x,new_obj3d.position.z)) {
+    obj3d.position.add(angleobj.multiplyScalar(0.004*x));  
+  }
+  //console.log(obj3d.position.x,obj3d.position.z)
+  //document.querySelector("#camera").object3D.translateZ(-0.1);
+}
+});
+var a = document.getElementById('a');
+addMaze();
+//addWall(a,15,15,10,1);
+
+};
+</script>
 </html>
